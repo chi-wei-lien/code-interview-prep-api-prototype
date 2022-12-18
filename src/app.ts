@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 
 // routers
 import DefaultRouter from "../routes/default-router";
+import googleLoginRouter from "../routes/google-login-router";
 
 class App {
   public server;
@@ -26,6 +27,7 @@ class App {
   }
   routes() {
     this.server.use(DefaultRouter);
+    this.server.use(googleLoginRouter);
   }
 }
 
