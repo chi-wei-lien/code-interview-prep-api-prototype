@@ -1,11 +1,11 @@
 {
-  "name": "code_interview_prep_api",
+  "name": "code-interview-prep-api",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "src/app.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/src/index.js",
-    "dev": "nodemon ./src/index.ts"
+    "start": "node ./dist/src/server.js",
+    "dev": "nodemon ./src/server.ts"
   },
   "repository": "git@github.com:chi-wei-lien/code-interview-prep-api.git",
   "author": "Chi-Wei Lien",
