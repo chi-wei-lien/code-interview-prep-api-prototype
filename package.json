@@ -11,7 +11,9 @@
   "author": "Chi-Wei Lien",
   "license": "MIT",
   "dependencies": {
+    "@types/cors": "^2.8.13",
     "@types/node": "^18.11.17",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "typescript": "^4.9.4"
   },

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 // middleware
 import logger from "../middleware/logger";
@@ -16,6 +17,7 @@ class App {
   }
   middleware() {
     this.server.use(logger);
+    this.server.use(cors);
   }
   routes() {
     this.server.use(DefaultRouter);
