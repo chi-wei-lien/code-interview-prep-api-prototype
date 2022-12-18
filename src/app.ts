@@ -1,4 +1,9 @@
 import express from "express";
+
+// middleware
+import logger from "../middleware/logger";
+
+// routers
 import DefaultRouter from "../routes/default-router";
 
 class App {
@@ -6,10 +11,12 @@ class App {
 
   constructor() {
     this.server = express();
-    // this.middlewares();
+    this.middleware();
     this.routes();
   }
-  middleware() {}
+  middleware() {
+    this.server.use(logger);
+  }
   routes() {
     this.server.use(DefaultRouter);
   }
