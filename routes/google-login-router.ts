@@ -19,11 +19,6 @@ class DefaultRouter {
       audience: process.env.CLIENT_ID,
     });
     const { name, email, picture } = ticket.getPayload();
-    const user = await prisma.user.upsert({
-      where: { email: email },
-      update: { name, picture },
-      create: { name, email, picture },
-    });
     DefaultRouter.upsertUser(name, email, picture)
       .then((user) => {
         console.log(`upset user ${user.name}`);
