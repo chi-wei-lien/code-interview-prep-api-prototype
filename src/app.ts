@@ -1,8 +1,11 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
 
 // middleware
 import logger from "../middleware/logger";
+import bodyParser from "body-parser";
 
 // routers
 import DefaultRouter from "../routes/default-router";
@@ -17,6 +20,7 @@ class App {
   }
   middleware() {
     this.server.use(logger);
+    this.server.use(bodyParser);
     this.server.use(cors);
   }
   routes() {
