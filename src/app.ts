@@ -20,8 +20,9 @@ class App {
   }
   middleware() {
     this.server.use(logger);
-    this.server.use(bodyParser);
-    this.server.use(cors);
+    this.server.use(cors());
+    this.server.use(bodyParser.urlencoded({ extended: true }));
+    this.server.use(bodyParser.json());
   }
   routes() {
     this.server.use(DefaultRouter);
