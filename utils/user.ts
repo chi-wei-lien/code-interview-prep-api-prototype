@@ -6,6 +6,7 @@ class User {
   name: string = "";
   picture: string = "";
   id: number;
+  createdAt?: Date;
 
   static async upsertUser(name: string, email: string, picture: string) {
     const user = await prisma.user.upsert({
