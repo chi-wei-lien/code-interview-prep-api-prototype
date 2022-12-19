@@ -9,7 +9,7 @@ class AdminRouter {
   }
 
   public printHelloWorld(req: Request, res: Response) {
-    res.send("yah");
+    res.status(200).json({ messagge: "hi admin" });
   }
 }
 

@@ -1,16 +1,15 @@
 import { Request, Response, Router } from "express";
 const { OAuth2Client } = require("google-auth-library");
-import { PrismaClient } from "@prisma/client";
 import User from "../utils/user";
 
 const client = new OAuth2Client(process.env.CLIENT_ID);
-const prisma = new PrismaClient();
 
 class DefaultRouter {
   public path = "/api/auth/google";
   public router = Router();
   constructor() {
     this.router.post(this.path, this.login);
+    this.router.post(`${this.path}/logout`, this.logout);
   }
 
   async login(req: Request, res: Response) {
@@ -20,25 +19,33 @@ class DefaultRouter {
       audience: process.env.CLIENT_ID,
     });
     const { name, email, picture } = ticket.getPayload();
-    DefaultRouter.upsertUser(name, email, picture)
+    User.upsertUser(name, email, picture)
       .then((user) => {
         console.log(`upset user ${user.name}`);
         req.session.user = user;
         res.status(201);
-        res.json(user);
+        res.json({ message: "Logged in successfully" });
       })
       .catch((error) => {
         console.error(error);
+        res.status(500);
+        res.json({ error: error });
       });
   }
 
-  static async upsertUser(name: string, email: string, picture: string) {
-    const user = await prisma.user.upsert({
-      where: { email: email },
-      update: { name, picture },
-      create: { name, email, picture },
+  async logout(req: Request, res: Response) {
+    await req.session.destroy((error) => {
+      if (error) {
+        console.error(error);
+        res.status(403);
+        res.json({ error: error });
+      } else {
+        res.status(200);
+        res.json({
+          message: "Logged out successfully",
+        });
+      }
     });
-    return user;
   }
 }
 
