@@ -24,7 +24,7 @@ class DefaultRouter {
         console.log(`upset user ${user.name}`);
         req.session.user = user;
         res.status(201);
-        res.json({ message: "Logged in successfully" });
+        res.json({ message: "Logged in successfully", user });
       })
       .catch((error) => {
         console.error(error);
