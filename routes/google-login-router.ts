@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 const { OAuth2Client } = require("google-auth-library");
 import { PrismaClient } from "@prisma/client";
+import User from "../utils/user";
 
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const prisma = new PrismaClient();
@@ -22,13 +23,13 @@ class DefaultRouter {
     DefaultRouter.upsertUser(name, email, picture)
       .then((user) => {
         console.log(`upset user ${user.name}`);
+        req.session.user = user;
+        res.status(201);
+        res.json(user);
       })
       .catch((error) => {
         console.error(error);
       });
-
-    res.status(201);
-    // res.json(user);
   }
 
   static async upsertUser(name: string, email: string, picture: string) {
