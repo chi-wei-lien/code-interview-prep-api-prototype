@@ -30,7 +30,7 @@ class Application {
           create: [
             {
               company: company,
-              comapnyURL: comapnyURL,
+              companyURL: comapnyURL,
               createdAt: createdAt,
               role: role,
             },
@@ -53,7 +53,7 @@ class Application {
       where: { id: id },
       data: {
         company: company,
-        comapnyURL: comapnyURL,
+        companyURL: comapnyURL,
         createdAt: createdAt,
         role: role,
       },

@@ -36,7 +36,6 @@ class ApplicationRouter {
     const email = req.session.user.email;
     Application.getApplications(email)
       .then((applications) => {
-        console.log(applications);
         res.status(200);
         res.json({ applications });
       })
@@ -46,6 +45,8 @@ class ApplicationRouter {
         res.json({ error: error });
       });
   }
+
+  public updateApplication(req: Request, res: Response) {}
 }
 
 export default new ApplicationRouter().router;
