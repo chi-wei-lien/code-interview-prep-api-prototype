@@ -58,7 +58,6 @@ class Application {
         role: role,
       },
     });
-
     return user;
   }
 }
