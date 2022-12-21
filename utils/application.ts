@@ -3,26 +3,18 @@ import { application } from "express";
 const prisma = new PrismaClient();
 
 class Application {
-  static async getApplications(userID: number): Promise<Application[]> {
-    return new Promise(async (resolve, reject) => {
-      await prisma.application
-        .findMany({
-          orderBy: [
-            {
-              createdAt: "desc",
-            },
-          ],
-          where: {
-            userId: userID,
-          },
-        })
-        .then((applications) => {
-          resolve(applications);
-        })
-        .catch((err) => {
-          reject(err);
-        });
+  static async getApplications(userID: number) {
+    const applications = await prisma.application.findMany({
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+      where: {
+        userId: userID,
+      },
     });
+    return applications;
   }
 
   static async addApplication(
