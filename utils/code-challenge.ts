@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class CodeChallenge {
-  static async getCodeChallenges(email: string) {
+  static async getCodeChallenges(userID: number) {
     const codeChallenges = await prisma.codeChallenge.findMany({
       orderBy: [
         {
@@ -10,7 +10,7 @@ class CodeChallenge {
         },
       ],
       where: {
-        userId: (await prisma.user.findUnique({ where: { email: email } })).id,
+        userId: userID,
       },
     });
     return codeChallenges;
@@ -44,18 +44,34 @@ class CodeChallenge {
     challenge: string,
     challengeURL: string,
     createdAt: Date,
-    email: string,
-    id: number
+    id: number,
+    userID: number
   ) {
-    const user = await prisma.codeChallenge.update({
-      where: { id: id },
+    const application = await prisma.codeChallenge.update({
+      where: {
+        challengeUserID: {
+          id: id,
+          userId: userID,
+        },
+      },
       data: {
         challenge,
         challengeURL,
         createdAt,
       },
     });
-    return user;
+    return application;
+  }
+
+  static async removeCodeChallenge(id: number, userID: number) {
+    await prisma.codeChallenge.delete({
+      where: {
+        challengeUserID: {
+          id: id,
+          userId: userID,
+        },
+      },
+    });
   }
 }
 

@@ -16,6 +16,7 @@ import DefaultRouter from "../routes/default-router";
 import AdminRouter from "../routes/admin-router";
 import googleLoginRouter from "../routes/google-login-router";
 import applicationRouter from "../routes/application-router";
+import codeChallengeRouter from "../routes/code-challenge-router";
 
 declare module "express-session" {
   interface SessionData {
@@ -57,6 +58,7 @@ class App {
     this.server.use(AdminRouter);
     this.server.use(googleLoginRouter);
     this.server.use(applicationRouter);
+    this.server.use(codeChallengeRouter);
   }
 }
 
