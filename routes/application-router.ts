@@ -35,9 +35,11 @@ class ApplicationRouter {
   }
 
   public getApplications(req: Request, res: Response) {
+    console.log("start fetching");
     const userID = req.session.user.id;
     Application.getApplications(userID)
       .then((applications) => {
+        console.log("get all applications");
         res.status(200);
         res.json({ applications });
       })

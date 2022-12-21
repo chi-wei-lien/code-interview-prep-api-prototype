@@ -8,7 +8,6 @@ import User from "../utils/user";
 
 // middleware
 import logger from "../middleware/logger";
-import checkLogin from "../middleware/check-login";
 import bodyParser from "body-parser";
 import session from "express-session";
 
