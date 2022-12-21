@@ -25,13 +25,13 @@ model Application {
   user          User            @relation(fields: [userId], references: [id])
   userId        Int
   createdAt     DateTime        @default(now()) 
+  @@unique(fields: [id, userId], name: "appUserID")
 }
 
 model CodeChallenge {
   id            Int             @default(autoincrement()) @id
   challenge     String
   challengeURL  String
-  role          String
   user          User            @relation(fields: [userId], references: [id])
   userId        Int
   createdAt     DateTime        @default(now()) 

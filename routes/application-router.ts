@@ -9,6 +9,7 @@ class ApplicationRouter {
     this.router.get(this.path, checkLogin, this.getApplications);
     this.router.post(this.path, checkLogin, this.addApplication);
     this.router.patch(this.path, checkLogin, this.updateApplication);
+    this.router.delete(this.path, checkLogin, this.removeApplication);
   }
 
   public addApplication(req: Request, res: Response) {
@@ -34,8 +35,8 @@ class ApplicationRouter {
   }
 
   public getApplications(req: Request, res: Response) {
-    const email = req.session.user.email;
-    Application.getApplications(email)
+    const userID = req.session.user.id;
+    Application.getApplications(userID)
       .then((applications) => {
         res.status(200);
         res.json({ applications });
@@ -53,12 +54,27 @@ class ApplicationRouter {
       req.body.companyURL,
       new Date(req.body.createdAt),
       req.body.role,
-      req.body.id
+      req.body.id,
+      req.session.user.id
     )
       .then(() => {
         console.log(`update application ${req.body.id}`);
         res.status(201);
         res.json({ message: "Application updated successfully" });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500);
+        res.json({ error: error });
+      });
+  }
+
+  public removeApplication(req: Request, res: Response) {
+    Application.removeApplication(req.body.id, req.session.user.id)
+      .then(() => {
+        console.log(`remove application ${req.body.id}`);
+        res.status(201);
+        res.json({ message: "Application removed successfully" });
       })
       .catch((error) => {
         console.error(error);

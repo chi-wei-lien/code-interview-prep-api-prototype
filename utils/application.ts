@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class Application {
-  static async getApplications(email: string) {
+  static async getApplications(userID: number) {
     const applications = await prisma.application.findMany({
       orderBy: [
         {
@@ -10,7 +10,7 @@ class Application {
         },
       ],
       where: {
-        userId: (await prisma.user.findUnique({ where: { email: email } })).id,
+        userId: userID,
       },
     });
     return applications;
@@ -44,21 +44,38 @@ class Application {
 
   static async updateApplication(
     company: string,
-    comapnyURL: string,
+    companyURL: string,
     createdAt: Date,
     role: string,
-    id: number
+    id: number,
+    userID: number
   ) {
-    const user = await prisma.application.update({
-      where: { id: id },
+    const application = await prisma.application.update({
+      where: {
+        appUserID: {
+          id: id,
+          userId: userID,
+        },
+      },
       data: {
         company: company,
-        companyURL: comapnyURL,
+        companyURL: companyURL,
         createdAt: createdAt,
         role: role,
       },
     });
-    return user;
+    return application;
+  }
+
+  static async removeApplication(id: number, userID: number) {
+    await prisma.application.delete({
+      where: {
+        appUserID: {
+          id: id,
+          userId: userID,
+        },
+      },
+    });
   }
 }
 
