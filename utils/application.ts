@@ -21,6 +21,7 @@ class Application {
     comapnyURL: string,
     createdAt: Date,
     role: string,
+    status: string,
     email: string
   ) {
     const user = await prisma.user.update({
@@ -33,6 +34,7 @@ class Application {
               companyURL: comapnyURL,
               createdAt: createdAt,
               role: role,
+              status: status,
             },
           ],
         },
@@ -48,6 +50,7 @@ class Application {
     createdAt: Date,
     role: string,
     id: number,
+    status: string,
     userID: number
   ) {
     const application = await prisma.application.update({
@@ -62,6 +65,7 @@ class Application {
         companyURL: companyURL,
         createdAt: createdAt,
         role: role,
+        status: status,
       },
     });
     return application;

@@ -37,7 +37,6 @@ class CodeChallengeRouter {
     const userID = req.session.user.id;
     CodeChallenge.getCodeChallenges(userID)
       .then((challenges) => {
-        console.log(challenges);
         res.status(200);
         res.json({ challenges });
       })

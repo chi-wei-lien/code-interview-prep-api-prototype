@@ -20,6 +20,7 @@ class ApplicationRouter {
       req.body.companyURL,
       createdAt,
       req.body.role,
+      req.body.status,
       email
     )
       .then((user) => {
@@ -55,6 +56,7 @@ class ApplicationRouter {
       new Date(req.body.createdAt),
       req.body.role,
       req.body.id,
+      req.body.status,
       req.session.user.id
     )
       .then(() => {
