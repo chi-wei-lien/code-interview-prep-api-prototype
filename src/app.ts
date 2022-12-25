@@ -13,7 +13,7 @@ import session from "express-session";
 
 // routers
 import DefaultRouter from "../routes/default-router";
-import AdminRouter from "../routes/admin-router";
+import checkRouter from "../routes/check-router";
 import googleLoginRouter from "../routes/google-login-router";
 import applicationRouter from "../routes/application-router";
 import codeChallengeRouter from "../routes/code-challenge-router";
@@ -55,7 +55,7 @@ class App {
   }
   routes() {
     this.server.use(DefaultRouter);
-    this.server.use(AdminRouter);
+    this.server.use(checkRouter);
     this.server.use(googleLoginRouter);
     this.server.use(applicationRouter);
     this.server.use(codeChallengeRouter);
