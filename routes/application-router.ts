@@ -13,15 +13,19 @@ class ApplicationRouter {
   }
 
   public addApplication(req: Request, res: Response) {
-    const email = req.session.user.email;
-    const createdAt = new Date(req.body.createdAt);
+    let createdAt;
+    if (req.body.createdAt) {
+      createdAt = new Date(req.body.createdAt);
+    } else {
+      createdAt = new Date();
+    }
+
     Application.addApplication(
       req.body.company,
       req.body.companyURL,
       createdAt,
       req.body.role,
-      req.body.status,
-      email
+      req.session.user.id
     )
       .then((user) => {
         console.log(`add application ${req.body.company}`);

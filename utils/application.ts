@@ -21,11 +21,28 @@ class Application {
     comapnyURL: string,
     createdAt: Date,
     role: string,
-    status: string,
-    email: string
+    userId: number
   ) {
+    let appStatus = await prisma.appStatus.findUnique({
+      where: {
+        appStatusID: {
+          value: "applied",
+          userId: userId,
+        },
+      },
+    });
+
+    if (!appStatus) {
+      appStatus = await prisma.appStatus.create({
+        data: {
+          value: "applied",
+          userId: userId,
+        },
+      });
+    }
+
     const user = await prisma.user.update({
-      where: { email: email },
+      where: { id: userId },
       data: {
         applications: {
           create: [
@@ -34,13 +51,13 @@ class Application {
               companyURL: comapnyURL,
               createdAt: createdAt,
               role: role,
-              status: status,
+              statusId: appStatus.id,
+              statusValue: appStatus.value,
             },
           ],
         },
       },
     });
-
     return user;
   }
 
@@ -51,13 +68,31 @@ class Application {
     role: string,
     id: number,
     status: string,
-    userID: number
+    userId: number
   ) {
+    let appStatus = await prisma.appStatus.findUnique({
+      where: {
+        appStatusID: {
+          value: status,
+          userId: userId,
+        },
+      },
+    });
+
+    if (!appStatus) {
+      appStatus = await prisma.appStatus.create({
+        data: {
+          value: status,
+          userId: userId,
+        },
+      });
+    }
+
     const application = await prisma.application.update({
       where: {
         appUserID: {
           id: id,
-          userId: userID,
+          userId: userId,
         },
       },
       data: {
@@ -65,7 +100,7 @@ class Application {
         companyURL: companyURL,
         createdAt: createdAt,
         role: role,
-        status: status,
+        statusId: appStatus.id,
       },
     });
     return application;
