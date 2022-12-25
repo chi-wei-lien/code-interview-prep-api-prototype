@@ -101,6 +101,7 @@ class Application {
         createdAt: createdAt,
         role: role,
         statusId: appStatus.id,
+        statusValue: appStatus.value,
       },
     });
     return application;
