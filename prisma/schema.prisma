@@ -15,7 +15,7 @@ model User {
   createdAt     DateTime        @default(now()) 
   applications  Application[]
   codeChallenge CodeChallenge[]
-  appStatuses   AppStatus[]  
+  appStatuses   AppStatus[]     
 }
 
 model Application {

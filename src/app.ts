@@ -17,6 +17,7 @@ import checkRouter from "../routes/check-router";
 import googleLoginRouter from "../routes/google-login-router";
 import applicationRouter from "../routes/application-router";
 import codeChallengeRouter from "../routes/code-challenge-router";
+import statusRouter from "../routes/status-router";
 
 declare module "express-session" {
   interface SessionData {
@@ -59,6 +60,7 @@ class App {
     this.server.use(googleLoginRouter);
     this.server.use(applicationRouter);
     this.server.use(codeChallengeRouter);
+    this.server.use(statusRouter);
   }
 }
 
