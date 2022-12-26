@@ -39,6 +39,7 @@ CREATE TABLE "AppStatus" (
     "id" SERIAL NOT NULL,
     "value" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
+    "color" TEXT NOT NULL DEFAULT '94a3b8',
 
     CONSTRAINT "AppStatus_pkey" PRIMARY KEY ("id")
 );

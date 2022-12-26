@@ -14,6 +14,23 @@ class User {
       update: { name, picture },
       create: { name, email, picture },
     });
+
+    await prisma.appStatus.createMany({
+      data: [
+        {
+          value: "applied",
+          color: "d9f99d",
+          userId: user.id,
+        },
+        {
+          value: "rejected",
+          color: "fecaca",
+          userId: user.id,
+        },
+      ],
+      skipDuplicates: true,
+    });
+
     return user;
   }
 }

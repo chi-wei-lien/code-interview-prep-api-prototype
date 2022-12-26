@@ -46,6 +46,7 @@ model AppStatus {
   id            Int             @default(autoincrement()) @id
   value         String          
   userId        Int
+  color         String          @default("94a3b8")
   user          User            @relation(fields: [userId], references: [id])
   applications  Application[]
   @@unique(fields: [value, userId], name: "appStatusID")
