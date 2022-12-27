@@ -17,7 +17,6 @@ CREATE TABLE "Application" (
     "role" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
     "statusId" INTEGER NOT NULL,
-    "statusValue" TEXT NOT NULL DEFAULT 'applied',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Application_pkey" PRIMARY KEY ("id")
@@ -39,7 +38,7 @@ CREATE TABLE "AppStatus" (
     "id" SERIAL NOT NULL,
     "value" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
-    "color" TEXT NOT NULL DEFAULT '94a3b8',
+    "color" TEXT NOT NULL DEFAULT 'fed7aa',
 
     CONSTRAINT "AppStatus_pkey" PRIMARY KEY ("id")
 );

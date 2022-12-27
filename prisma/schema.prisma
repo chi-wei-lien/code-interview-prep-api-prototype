@@ -26,7 +26,6 @@ model Application {
   user          User            @relation(fields: [userId], references: [id])
   userId        Int
   statusId      Int             
-  statusValue   String          @default("applied")
   status        AppStatus       @relation(fields: [statusId], references: [id])
   createdAt     DateTime        @default(now()) 
   @@unique(fields: [id, userId], name: "appUserID")
@@ -46,7 +45,7 @@ model AppStatus {
   id            Int             @default(autoincrement()) @id
   value         String          
   userId        Int
-  color         String          @default("94a3b8")
+  color         String          @default("fed7aa")
   user          User            @relation(fields: [userId], references: [id])
   applications  Application[]
   @@unique(fields: [value, userId], name: "appStatusID")

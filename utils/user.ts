@@ -19,12 +19,17 @@ class User {
       data: [
         {
           value: "applied",
-          color: "d9f99d",
+          color: "cbd5e1",
           userId: user.id,
         },
         {
           value: "rejected",
           color: "fecaca",
+          userId: user.id,
+        },
+        {
+          value: "offered",
+          color: "d9f99d",
           userId: user.id,
         },
       ],
